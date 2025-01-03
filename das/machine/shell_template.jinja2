@@ -1,4 +1,11 @@
 #!/bin/bash
+#SBATCH -J {{job_name}}  
+#SBATCH -p {{part_name}} 
+{% if nnodes -%}
+#SBATCH -N {{ nnodes }}  
+#SBATCH -n {{ncores}}
+{% if run_limit -%} 
+#SBATCH -t {{run_limit}}  
 
 work_path=$PWD
 
@@ -12,3 +19,16 @@ touch __ok__
 cd ${work_path}
 
 {% endfor %}
+
+
+
+         
+            
+           
+     
+
+
+
+
+
+

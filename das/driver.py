@@ -46,7 +46,7 @@ class Driver:
             self.logger.info("Recover from status file")
             self.update_status_flag(False)
         self.label = label
-        self.config_dir = Path(config_dir).abspath()
+        self.config_dir = Path(config_dir).absolute()
         self.params = params
 
         self.worker_template = {}
@@ -372,7 +372,7 @@ class Driver:
             directory.mkdir_p()
             module_logger.info(f"create {directory}")
 
-        directory = directory.abspath()
+        directory = directory.absolute()
         return directory
 
 

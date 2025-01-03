@@ -7,11 +7,12 @@ from das.utils import AutoRepr, split_jobs
 @AutoRepr
 class MachineShell(Machine):
     def __init__(self, template_file=None, env_source_file=None,
-                 machine_type='machine_shell', **kwargs):
+                 machine_type='machine_shell',**kwargs):
         super().__init__(machine_type=machine_type, **kwargs)
         self.env_source_file = env_source_file
         default_template = "shell_template.jinja2"
         self.job_template = self.get_template(template_file, default_template)
+
 
     def generate_task_run_file(self, job_dir):
         job_dir = Path(job_dir)
@@ -27,6 +28,11 @@ class MachineShell(Machine):
             job_str = self.job_template.render({
                 "job_paths": job_paths,
                 "sub_run_str": sub_run_str,
+                "job_name": f"mlp_{i}",
+                "part_name": part_name,
+                "n_nodes": nnodes,
+                "n_cores": ncores,
+                "run_limit": run_limit,
             })
             with open(job_dir / f"jobs_{i}.job", "w") as writer:
                 writer.write(job_str)
